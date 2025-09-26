@@ -1,24 +1,27 @@
-import React, { useState } from 'react'
-import Header from './components/Header'
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Layout from './components/Layout'
+import Home from './pages/Home'
 import TestGenerator from './components/TestGenerator'
 import TestResults from './components/TestResults'
 import TestRunner from './components/TestRunner'
+import NotFound from './pages/NotFound'
 import { TestProvider } from './context/TestContext'
 
 function App() {
-  const [activeTab, setActiveTab] = useState('generate')
-
   return (
     <TestProvider>
-      <div className="min-h-screen bg-gray-50">
-        <Header activeTab={activeTab} setActiveTab={setActiveTab} />
-        
-        <main className="container mx-auto px-4 py-8">
-          {activeTab === 'generate' && <TestGenerator />}
-          {activeTab === 'run' && <TestRunner />}
-          {activeTab === 'results' && <TestResults />}
-        </main>
-      </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="generate" element={<TestGenerator />} />
+            <Route path="run" element={<TestRunner />} />
+            <Route path="results" element={<TestResults />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </Router>
     </TestProvider>
   )
 }
