@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { useTest } from '../context/TestContext'
+import { useNavigation } from '../hooks/useNavigation'
 import { generateTests, generateEdgeCases } from '../services/api'
 import ManualTestCard from './ManualTestCard'
 import PlaywrightTestCard from './PlaywrightTestCard'
 import EdgeCaseCard from './EdgeCaseCard'
-import { Loader2, FileText, Code, AlertTriangle } from 'lucide-react'
+import { Loader2, FileText, Code, AlertTriangle, ArrowRight } from 'lucide-react'
 
 export default function TestGenerator() {
   const { state, dispatch } = useTest()
-  const [baseURL, setBaseURL] = useState('https://demo.example.com')
+  const { goToRun } = useNavigation()
+  const [baseURL, setBaseURL] = useState('http://localhost:3002')
 
   const handleGenerateAll = async () => {
     if (!state.userStory.trim()) {
@@ -79,7 +81,7 @@ export default function TestGenerator() {
             />
           </div>
           
-          <div className="flex space-x-4">
+          <div className="flex flex-wrap gap-4">
             <button
               onClick={handleGenerateAll}
               disabled={state.loading}
@@ -101,6 +103,16 @@ export default function TestGenerator() {
               <AlertTriangle className="w-4 h-4" />
               <span>Suggest Edge Cases</span>
             </button>
+            
+            {state.playwrightTest && (
+              <button
+                onClick={goToRun}
+                className="btn-primary flex items-center space-x-2 bg-green-600 hover:bg-green-700"
+              >
+                <ArrowRight className="w-4 h-4" />
+                <span>Run Generated Test</span>
+              </button>
+            )}
           </div>
         </div>
         

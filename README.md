@@ -12,19 +12,28 @@ An intelligent web application that generates manual test cases and automated Pl
 - **Modern UI**: Clean React frontend with TailwindCSS
 
 ### Tech Stack
-- **Frontend**: React + Vite + TailwindCSS
+- **Frontend**: React + Vite + TailwindCSS + React Router
 - **Backend**: Node.js + Express
 - **AI**: OpenAI GPT-4 API
 - **Testing**: Playwright
 - **Demo App**: Simple Todo/Login app for testing
 
+### Routing Structure
+- **Home** (`/`): Landing page with overview and quick start
+- **Generate Tests** (`/generate`): AI-powered test generation interface
+- **Run Tests** (`/run`): Test execution and custom test runner
+- **Results** (`/results`): Test results dashboard with analytics
+- **404 Page**: Custom not found page with navigation help
+
 ## 📁 Project Structure
 
 ```
 /ai-test-automation-assistant
-  /frontend (React + Tailwind)
+  /frontend (React + Tailwind + Router)
     /src
       /components (UI components)
+      /pages (Route components)
+      /hooks (Custom hooks)
       /context (React context)
       /services (API services)
   /backend (Node + Express)
